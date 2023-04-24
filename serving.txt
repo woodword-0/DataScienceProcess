@@ -1,0 +1,16 @@
+# Check port
+Get-Process -Id (Get-NetTCPConnection -LocalPort 9000).OwningProcess
+# Stop process
+Stop-Process -Id 23348
+
+#Start Server
+"tensorflow_model_server --port=9000 --model_name=linear_model --model_base_path=C:/CodeTest1/Venv1/SalesFeb2023/pringledatascience/pringledatascience/linear_model"
+
+1. Install Vscode
+
+2. On your desktop task bar search for and open the Microsoft Store by clicking the Windows Start button and searching for "Microsoft Store".
+
+In the Microsoft Store, search for "Ubuntu" and select the version of Ubuntu you want to install (e.g. "Ubuntu 20.04 LTS").
+Click the "Get" or "Install" button to download and install Ubuntu.
+Once Ubuntu is installed, you can open a PowerShell window and start the Ubuntu environment by running the following command:
+wsl
