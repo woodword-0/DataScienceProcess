@@ -1,0 +1,13 @@
+1. Set up Python environment
+2. Install the following dependencies
+	pip install flask
+	pip install pandas
+
+once the environment is activated, run
+python app.py 
+and navigate to port 5001
+
+
+
+python -m venv Test
+pip freeze > requirements.txt

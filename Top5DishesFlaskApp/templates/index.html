@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top 5 Dishes</title>
+    <style>
+        /* Define the styles for the box */
+        .box {
+            border: 1px solid black; /* Add a black border */
+            padding: 10px; /* Add some padding */
+            margin: 10px; /* Add some margin */
+        }
+    </style>
+</head>
+<body>
+    <div class="box"> <!-- Wrap the HTML content in a div with class="box" -->
+        <h1>Top 5 Dishes:</h1>
+        <ul>
+        {% for dish, count in top_five %}
+            <li>{{ dish }}: {{ count }}</li>
+        {% endfor %}
+        </ul>
+    </div> <!-- Close the div -->
+</body>
+</html>
