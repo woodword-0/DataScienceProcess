@@ -1,0 +1,32 @@
+Index(['CartID', 'DateCreated', 'CustomerId', 'Token', 'CartStatusID',
+       'TotalCost', 'CartItemID', 'CartID.1', 'MenuItemID', 'Quantity',
+       'UnitCost', 'MenuItemID.1', 'MenuCategoryID', 'ItemName',
+       'ItemDescription', 'ItemPrice', 'Monday', 'Tuesday', 'Wednesday',
+       'Thursday', 'Friday', 'Saturday', 'Sunday', 'CustomerID', 'Token.1',
+       'PostalCode', 'Email', 'CustomerCategory', 'TotalRewards',
+       'LastVisitDate'],
+      dtype='object')
+	  cols = ['CartID', 'DateCreated', 'CustomerId', 'Token',
+       'TotalCost', 'CartItemID', 'CartID.1', 'Quantity',
+       'UnitCost', 'ItemName']
+	   
+	   
+	   
+1. Representing the data: The first step is to represent the data in a format that can be used to compute similarity between users or items. 
+This can be done by creating a matrix where rows represent users and columns represent items, and each entry represents a rating or some other measure of user-item interaction.
+
+2. Computing similarities: The next step is to compute similarity between users or items in the matrix. 
+This can be done using a variety of similarity measures, such as cosine similarity or Pearson correlation coefficient.
+
+3. Finding similar users/items: Based on the computed similarity, similar users or items can be identified. 
+For example, if we are building a user-based recommender system, we can find the most similar users to a given user based on their past interactions with items.
+
+4. Making recommendations: Once similar users or items have been identified, recommendations can be made to the user based on the items that similar users have interacted with. This can be done using techniques such as collaborative filtering or content-based filtering.
+
+5. Evaluating performance: The final step is to evaluate the performance of the recommender system using metrics such as precision, recall, and mean average precision.
+ This is important to ensure that the system is providing accurate recommendations to users.
+
+
+
+
+
