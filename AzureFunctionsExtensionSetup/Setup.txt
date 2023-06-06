@@ -1,0 +1,15 @@
+1. Follow the prompts in the images as numbered (make sure you use python developer V2)
+2. Once your function project is setup:
+    -- # Activate the venv
+        ./.venv/scripts/activate
+
+    --  # Update pip
+        python.exe -m pip install --upgrade pip
+
+    --  # Install dependencies
+        pip install -r requirements.txt
+3. Replace the function_app.py script with the function_app_code.txt script
+4. Start function
+    func start
+5. Replace the 'name' query with the name of the resturant
+http://localhost:7071/api/Trigger?name=Aappakadai%20Indian%20Chettinad%20-%20Santa%20Clara

@@ -1,0 +1,32 @@
+# Make a virtual environment
+python -m venv .venv
+
+# Activate
+./.venv/scripts/activate
+
+# Update pip
+python.exe -m pip install --upgrade pip
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Create Local Function Project
+func init PringleSalesForecast --python -m V2
+
+# cd into Project
+cd PringleSalesForecast
+
+# Set up the Azure dev storage
+azurite 
+
+-- By default, local development uses the Azurite storage emulator.
+-- This emulator is used when the AzureWebJobsStorage setting in 
+-- the local.settings.json project file is set to UseDevelopmentStorage=true.
+-- When using the emulator, 
+-- you must start the local Azurite storage emulator before running the function.
+
+# Start your function
+func start
+
+
+git clone -b DataScience https://JoshT000@bitbucket.org/pringletechnologiesinc/pringledatascience.git
