@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Time Series Prediction</title>
+</head>
+<body>
+    <h2>Enter your data:</h2>
+    <form method="POST" action="/">
+        <input type="text" name="input1" placeholder="Input 1"><br><br>
+        <input type="text" name="input2" placeholder="Input 2"><br><br>
+        <input type="text" name="input3" placeholder="Input 3"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    {% if output1 %}
+        <h2>Predicted Output:</h2>
+        <p>Output 1: {{ output1 }}</p>
+        <p>Output 2: {{ output2 }}</p>
+        <p>Output 3: {{ output3 }}</p>
+    {% endif %}
+</body>
+</html>
