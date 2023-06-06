@@ -1,0 +1,23 @@
+# Make a virtual environment
+python -m venv .venv
+
+# Activate
+./.venv/scripts/activate
+
+# Update pip
+python.exe -m pip install --upgrade pip
+
+# Create Local Function Project
+func init PringleSalesForecast --python -m V2
+
+# cd into Project
+cd PringleSalesForecast
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Start your function
+func start
+
+
+git clone -b DataScience https://JoshT000@bitbucket.org/pringletechnologiesinc/pringledatascience.git
