@@ -1,0 +1,2 @@
+docker build -t pairings .
+docker run -p 8501:8501 pairings
