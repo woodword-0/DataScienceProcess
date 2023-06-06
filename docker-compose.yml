@@ -1,0 +1,12 @@
+version: '3'
+services:
+  data:
+    build: .
+    command: python data.py
+    volumes:
+      - ./data:/app/data
+  forecast:
+    build: .
+    command: python flasktest.py
+    volumes:
+      - ./data:/app/data
