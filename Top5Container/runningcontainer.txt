@@ -1,0 +1,9 @@
+-- This is a containerized application with all dependencies and artifacts built in
+-- Launching the container in docker should open an endpoint displaying the top 5 for one restaurant (as described in the data file)
+-- along with a dynamic dataframe displaying the item counts for the restaurant
+-- to run the container download docker (also docker desktop is useful) 
+-- in the open the directory and in terminal run: 
+docker build -t top5app .
+docker run -p 8501:8501 top5app
+
+Then go to localhost port 8501.
