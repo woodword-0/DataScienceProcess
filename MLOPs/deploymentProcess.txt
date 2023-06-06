@@ -1,0 +1,36 @@
+1. Create an Azure DevOps account and set up a new project.
+
+2. Connect your Github repository to your Azure DevOps project.
+
+3. Create a Dockerfile that defines your ML model environment.
+
+4. Build a Docker image using your Dockerfile and push it to Docker Hub or any other Docker registry.
+
+5. Create an Azure Machine Learning workspace and deploy your Docker image to it.
+
+6. Use Azure Pipelines to automate the deployment process. You can create a pipeline that triggers a build whenever there is a new commit to your Github repository.
+
+7. Set up monitoring and logging for your ML model using Azure Application Insights.
+
+8. Test your deployment and monitor it for any issues.
+
+
+
+# Setting up the shell file:
+1. Set variables: The first few lines of the script define several variables that will be used throughout the deployment process.
+ These include the infrastructure version (bicep or terraform), project type (classical, cv, or nlp), 
+ MLOps version (aml-cli-v2, python-sdk-v1, python-sdk-v2, or rai-aml-cli-v2), orchestration (azure-devops or github-actions), and several folder and project names.
+
+2. Change directory: This line changes the working directory to the root folder location specified in the git_folder_location variable.
+
+3. Clone project repo: This line clones the project template Git repository specified in the project_template_github_url variable to the $project_name folder in the working directory.
+
+4. Sparse checkout: This line sets up a sparse checkout for the Git repository, so that only the necessary folders are downloaded.
+
+4. Move files: These lines move the files from the subfolders created by the project template to the appropriate level in the project folder.
+
+5. Move config file (if necessary): If the MLOps version is python-sdk-v1, the config-aml.yml file is moved to the root level of the project folder.
+
+6. Clean up: These lines remove unnecessary subfolders from the project folder.
+
+7. Upload to Github: These lines initialize a new Git repository, create a new private repository on Github with the specified project name and organization name, and push the files from the local Git repository to the remote repository.

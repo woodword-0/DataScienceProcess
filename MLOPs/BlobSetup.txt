@@ -1,0 +1,20 @@
+# Make a virtual environment
+python -m venv .venv
+
+# Activate the virtual environment
+./.venv/scripts/activate
+
+# Update pip
+python.exe -m pip install --upgrade pip
+
+# Install blob storage
+pip install azure-storage-blob
+
+# Login to Azure
+az login
+
+# Create an Azure resource group
+az group create --name PringleModelsTesting --location centralus
+
+# Create general purpose storage account
+az storage account create --name modelsstorage --location centralus --resource-group PringleModelsTesting --sku Standard_LRS

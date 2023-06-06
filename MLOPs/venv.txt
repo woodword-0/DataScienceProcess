@@ -1,0 +1,61 @@
+-- Or create your own environment in a folder
+install python, navigate to folder in terminal type:
+python -m venv Test
+-- Use pip to install necessary libraries
+-- to generate the "requirements.txt" for the docker container, type:
+pip freeze > requirements.txt
+
+Create Dockerfile
+run docker
+docker build -t top5app .
+docker run -p 8501:8501 top5app
+
+
+Git branches
+git checkout MLOps
+mkdir Top5Container
+cp -r folder-to-copy new-directory
+cp -R DataScience/Top5Container MLOps/Top5Container.
+
+
+
+https://noc-staging.pringlestaging.com/
+https://www.pringlestaging.com/
+
+
+
+pipelines:
+  branches:
+    Development:
+      - step:
+          name: Install dependencies
+          caches:
+            - pip
+          script:
+            - pip install --upgrade pip
+            - pip install virtualenv
+            - virtualenv venv
+            - source venv/bin/activate
+            - pip install -r requirements.txt
+
+      - step:
+          name: Run Streamlit app
+          services:
+            - docker
+          caches:
+            - docker
+          script:
+           - export DOCKER_BUILDKIT=0
+           # Build the Docker image
+		   script:
+			  - echo "DOCKERHUB_PASSWORD" | docker login -u woodword0 --password-stdin
+			  - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+			  - docker build -t $DOCKER_HUB_USERNAME/repository:tag .
+			  - docker push $DOCKER_HUB_USERNAME/repository:tag
+           - docker build -t top5container .
+          
+           # Start the Docker container
+           - docker run -d -p 80:8501 top5container
+           - echo "79%Deady$$" | docker login -u woodword0 --password-stdin
+           - docker build -t woodword0/models01:adddockerhubrepo .
+           - docker push woodword0/models01:adddockerhubrepo

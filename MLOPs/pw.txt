@@ -1,0 +1,52 @@
+5%<M3qMq2aFu6rT%
+
+TurnerJ:
+785$H4RVoCYBxc
+
+DataBase:
+PRINGLED0000031\SQLEXPRESS
+
+Bitbucket:
+ATBByH9E9C3zDj8HtHW98tZvLT2A5E99BE4C
+
+
+Venv:
+python3 -m venv /path/to/new/virtual/environment
+python3 -m venv /C:/Pringle/DatabasevsCode
+
+DbTest:
+https://localhost:44300/
+
+
+Docker: woodword1979@gmail.com
+pw: 79%Deady$$$
+
+Docker: 
+
+docker exec -it api_call ping google.com
+docker run --name preprocessing --network weatherdata -v shared_data:/app/data preprocessing
+# create network
+docker network create weatherdata
+
+
+
+ARIMA deployment: 
+Save the trained model to a file format that can be loaded by a web service, such as a serialized pickle file.
+Build a Docker image that contains the web service code and the saved model file.
+Push the Docker image to a container registry, such as Docker Hub or Azure Container Registry.
+Deploy the Docker image to a Kubernetes cluster or an Azure App Service instance.
+Create a web front-end that sends requests to the deployed web service and displays the response in a graph.
+
+
+
+>>> print('Best model parameters: ARIMA{}x{} - AIC:{} enforce_stationarity={}'.format(param1, param2, aic,es1))
+Best model parameters: ARIMA(0, 1, 1)x(0, 1, 1, 7) - AIC:4941.20523955473 enforce_stationarity=False
+>>> # Use optimal parameters to fit model
+
+Azure:
+79People
+az acr login --name pringlemodels.azurecr.io
+docker tag sarima-model pringlemodels.azurecr.io/sarima-model:01
+docker push pringlemodels.azurecr.io/sarima-model:01
+
+

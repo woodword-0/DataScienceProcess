@@ -1,0 +1,47 @@
+1. Build your Docker image using the Dockerfile you have.
+docker build -t sarima-model . 
+2. Create an Azure Container Registry (ACR) if you don't already have one.
+(Use Azure Portal)(login to Azure)
+3. Tag the image
+docker tag <image-name> <registry-name>/<repository-name>:<tag>
+docker tag sarima-model pringledatascience.azurecr.io/sarima-model:latest
+
+3. Push your Docker image to your ACR.
+docker tag <image-name>:<tag> <registry-name>/<image-name>:<tag>
+docker push pringledatascience.azurecr.io/sarima-model:latest
+
+
+4. Create an Azure Container Instance using your Docker image from your ACR.
+
+5. Expose the port that your endpoint is listening on.
+
+6. Access your endpoint using the public IP address of your Azure Container Instance.
+
+http://20.122.215.207:80
+
+Create a container registry:
+
+Log in to the Azure portal.
+Navigate to the "Container registries" page.
+Click the "Add" button to create a new registry.
+Fill in the required information, such as the registry name, subscription, resource group, and location.
+Choose the pricing tier and replication location, if applicable.
+Click the "Review + create" button to review your settings, then click "Create" to create the registry.
+Create a container instance:
+
+Log in to the Azure portal.
+Navigate to the "Container instances" page.
+Click the "Add" button to create a new instance.
+Fill in the required information, such as the instance name, subscription, resource group, and location.
+Choose the container image you want to run, such as from Docker Hub or your container registry.
+Specify the container configuration, such as the number of CPUs and memory.
+Choose the networking configuration, such as the virtual network and IP address type.
+Click the "Review + create" button to review your settings, then click "Create" to create the container instance.
+Push and launch a Docker container from PowerShell in Visual Studio Code:
+
+Open PowerShell in Visual Studio Code.
+Authenticate to the Azure Container Registry using the docker login command.
+Tag the Docker container with the name of your registry using the docker tag command.
+Push the Docker container to your registry using the docker push command.
+Use the Azure CLI or PowerShell to create and start a container instance from your Docker image. The command may look something like this: 
+az container create --resource-group myResourceGroup --name mycontainer --image myregistry.azurecr.io/myimage:tag --cpu 1 --memory 1.5 --registry-login-server myregistry.azurecr.io --registry-username <username> --registry-password <password> --dns-name-label <dns-name-label> --ports 80

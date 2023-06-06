@@ -1,0 +1,69 @@
+# Make a virtual environment
+python -m venv .venv
+
+# Activate the virtual environment
+./.venv/scripts/activate
+
+# Update pip
+python.exe -m pip install --upgrade pip
+
+# Create Local Function Project (Make sure to use V2)
+func init PringleSalesForecast --python -m V2
+
+# cd into Project
+cd PringleSalesForecast
+
+# Add a function to the project
+func new --name SalesForecast --template "HTTP trigger" --authlevel "anonymous"
+
+# Copy and paste the code from the 'function_app_code.txt' file into the 'function_app.py' file (save file)
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Move the 'trained_model.pkl' file to the 'PringleSalesForecast' folder
+
+# Start your function
+func start
+#################################################################################################################################################################################################
+#################################################################################################################################################################################################
+# Helpful links
+# Use the following query to get sales data from a specific restaurant
+http://localhost:7071/api/Trigger?name=Aappakadai%20Indian%20Chettinad%20-%20Santa%20Clara
+
+git clone -b DataScience https://JoshT000@bitbucket.org/pringletechnologiesinc/pringledatascience.git
+#################################################################################################################################################################################################
+#################################################################################################################################################################################################
+# DEPLOYMENT
+<APP_NAME> = PringleSalesAI
+# Login to Azure
+az login
+
+# Create an Azure resource group
+az group create --name PringleModelsTesting --location centralus
+
+# Create general purpose storage account
+az storage account create --name modelsstorage --location centralus --resource-group PringleModelsTesting --sku Standard_LRS
+
+# Create the function app in Azure
+az functionapp create --resource-group PringleModelsTesting --consumption-plan-location centralus --runtime python --runtime-version 3.10 --functions-version 4 --name PringleSalesAI --os-type linux --storage-account modelsstorage
+
+# Deploy the project to Azure
+func azure functionapp publish PringleSalesAI
+
+# Verify
+func azure functionapp logstream PringleSalesAI --browser
+
+# Cleanup (Delete the resource group)
+az group delete --name PringleModelsTesting
+
+# CONNECT TO BLOB storage to add to the 'local.settings.json' file
+# creates a json file with 'AzureWebJobsStorage' parameter - which is the storage account connection string
+func azure functionapp fetch-app-settings PringleSalesAI
+
+# Add queue_output decorator to the 'function_app.py' file to connect to the storage
+# Add the following code to the 'function_app.py' file (above the defined function)
+@app.queue_output(arg_name="msg", queue_name="outqueue", connection="AzureWebJobsStorage")
+
+# Run the function locally
+func start

@@ -1,0 +1,7 @@
+docker build -t SARIMA .
+docker run -v /path/to/local/directory:/app/dataframe dataframe_generator
+
+
+
+docker build -t top5app .
+docker run -p 5001:5001 top5app

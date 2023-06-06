@@ -1,0 +1,7 @@
+-- Ports
+Listening:
+netstat -an | findstr LISTENING
+
+kill:
+taskkill /F /PID <pid_number>
+netstat -ano | findstr :<port_number>
