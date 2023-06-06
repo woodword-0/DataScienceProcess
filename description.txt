@@ -1,0 +1,3 @@
+Retrieves temperature data from a given timeframe and pickels a dataset into datasets for forecasting sales for Pringle customers. Also runs SARIMA model in a docker container
+which sends the forecasted sales to a browser port complete with one-month prediction and confidence intervals.
+The initial dataset starts at 06-01-22. More data will open the way to better models.
