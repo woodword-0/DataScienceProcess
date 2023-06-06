@@ -1,0 +1,13 @@
+# open powershell terminal in vs code
+# build and run the docker container
+
+# in the terminal type:
+docker-compose up --build
+# This will start the tensorflow server container which hosts the model found in the directory 
+# Open a second terminal in vs code
+# Next run the front-end file app.py
+# In the terminal type:
+python app.py
+# Finally head on over to: 
+http://localhost:5000/
+# in your browser and input individual predictions
