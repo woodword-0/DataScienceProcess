@@ -1,0 +1,6 @@
+-- Or create your own environment in a folder
+install python, navigate to folder in terminal type:
+python -m venv Test
+-- Use pip to install necessary libraries
+-- to generate the "requirements.txt" for the docker container, type:
+pip freeze > requirements.txt
