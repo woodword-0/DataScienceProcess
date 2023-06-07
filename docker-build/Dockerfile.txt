@@ -1,0 +1,11 @@
+# Use the official TensorFlow Serving runtime as a parent image
+FROM tensorflow/serving
+
+# Copy the SavedModel into the container
+COPY /c/mnt/Users/TurnerJ/OneDrive/Desktop/Docker0/basic_model /models/linear_model/1
+
+# Expose port 8500 for the TensorFlow Serving API
+EXPOSE 8500
+
+# Start the TensorFlow Serving runtime with the model loaded
+CMD ["tensorflow_model_server", "--port=8500", "--model_name=linear_model", "--model_base_path=/models/linear_model"]
