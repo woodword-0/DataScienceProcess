@@ -1,0 +1,32 @@
+Azure Account:
+
+az login: Log in to your Azure account.
+az account show: Show the details of the current Azure account.
+az account list: List all Azure subscriptions.
+Resource Groups:
+
+az group create --name <group_name> --location <location>: Create a new resource group.
+az group delete --name <group_name>: Delete a resource group.
+az group list: List all resource groups in the current subscription.
+Virtual Machines:
+
+az vm create --resource-group <group_name> --name <vm_name> --image <image> --admin-username <username> --admin-password <password>: Create a new virtual machine.
+az vm start --resource-group <group_name> --name <vm_name>: Start a virtual machine.
+az vm stop --resource-group <group_name> --name <vm_name>: Stop a virtual machine.
+az vm list: List all virtual machines in a resource group or subscription.
+App Services:
+
+az appservice plan create --name <plan_name> --resource-group <group_name> --sku <sku>: Create an app service plan.
+az webapp create --name <app_name> --plan <plan_name> --resource-group <group_name> --runtime <runtime>: Create a web app.
+az webapp delete --name <app_name> --resource-group <group_name>: Delete a web app.
+az webapp list: List all web apps in a resource group or subscription.
+Storage Accounts:
+
+az storage account create --name <account_name> --resource-group <group_name> --location <location> --sku <sku>: Create a storage account.
+az storage account show --name <account_name> --resource-group <group_name>: Show the details of a storage account.
+az storage account list: List all storage accounts in a resource group or subscription.
+Networking:
+
+az network vnet create --name <vnet_name> --resource-group <group_name> --location <location> --address-prefix <address_prefix>: Create a virtual network.
+az network nsg create --name <nsg_name> --resource-group <group_name> --location <location>: Create a network security group.
+az network lb create --name <lb_name> --resource-group <group_name> --frontend-ip-name <ip_name> --backend-pool-name <pool_name>: Create a load balancer.

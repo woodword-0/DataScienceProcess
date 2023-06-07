@@ -1,0 +1,4 @@
+-- this container will run the "most ordered together" app
+-- to run the container:
+docker build -t mostorderedtogether .
+docker run -p 8501:8501 mostorderedtogether
