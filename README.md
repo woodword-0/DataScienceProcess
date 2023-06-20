@@ -1,2 +1,2 @@
 # DataScienceProcess
-Repository for Pringle robotics Data Science projects and the MLOps Process
+Repository for Data Science projects and the MLOps Process
