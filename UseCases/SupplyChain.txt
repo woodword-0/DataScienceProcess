@@ -1,0 +1,5 @@
+This outlines a general supply chain problem that I have implemented with great success:
+Given 'k' delivery bots and 'N' stores, optimize scheduling.
+
+To solve the problem, we first created time series forecasting models to predict sales
+by restricting the model to specific dishes we were able to forecast the food orders
