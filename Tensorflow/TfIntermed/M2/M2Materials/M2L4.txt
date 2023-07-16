@@ -1,0 +1,69 @@
+M2L3
+
+import numpy as np
+import random
+import itertools
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Embedding, SimpleRNN, Dense
+
+
+
+# Define the SimpleRNN model
+model1 = Sequential()
+model1.add(Embedding(5, 8, input_length=4))  # Embedding layer to represent input sequences
+model1.add(SimpleRNN(16))  # SimpleRNN layer to capture sequential information
+model1.add(Dense(4, activation='softmax'))  # Output layer with softmax activation for classification
+
+
+model2 = Sequential()
+model2.add(Embedding(5, 8, input_length=4))  # Embedding layer to represent input sequences
+model2.add(tf.keras.layers.LSTM(16))  # SimpleRNN layer to capture sequential information
+model2.add(Dense(4, activation='softmax'))  # Output layer with softmax activation for classification
+
+
+# Define the GRU model
+model3 = Sequential()
+model3.add(Embedding(5, 8, input_length=4))  # Embedding layer to represent input sequences
+model3.add(tf.keras.layers.GRU(16))  # SimpleRNN layer to capture sequential information
+model3.add(Dense(4, activation='softmax')) 
+
+
+# A dataset
+# Define the input sequences and their labels
+# Generate all permutations (Number of ways to label 4 vertices of a square 1-4)
+X = list(itertools.permutations([1, 2, 3, 4]))
+# Generate labels to classify each labeling as a specific type
+labels = random.choices([0, 1, 2, 3], k=24)
+# Create a train/test set
+X = np.array(X)
+y = np.array(labels)
+X_train = X[:int(0.8*len(X))]
+y_train = y[:int(0.8*len(y))]
+X_test = X[int(0.8*len(X)):]
+y_test = y[int(0.8*len(y)):]
+
+
+
+# Compile the models
+model1.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model2.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model3.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+# Train the models
+history1 = model1.fit(X, y, epochs=10, validation_split=0.2)
+history2 = model2.fit(X, y, epochs=10, validation_split=0.2)
+history3 = model3.fit(X, y, epochs=10, validation_split=0.2)
+
+# Get accuracy of each model
+train_accuracy1 = history1.history['accuracy']
+train_accuracy2 = history2.history['accuracy']
+train_accuracy3 = history3.history['accuracy']
+best1 = train_accuracy1[np.argmax(train_accuracy1)]
+best2 = train_accuracy2[np.argmax(train_accuracy2)]
+best3 = train_accuracy3[np.argmax(train_accuracy3)]
+
+
+# Compare RNN variants
+print(f'Vanilla Rnn: {best1},LSTM: {best2},GRU: {best3}')
+

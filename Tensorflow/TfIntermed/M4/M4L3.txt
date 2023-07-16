@@ -1,0 +1,49 @@
+M4L3
+
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+
+# Define the number of users and items
+num_users = 100
+num_items = 50
+# Generate random user-item interactions
+user_ids = np.random.randint(0, num_users, size=1000)
+item_ids = np.random.randint(0, num_items, size=1000)
+# Simulate ratings or preferences (e.g., on a scale of 1 to 5)
+ratings = np.random.randint(1, 6, size=1000)
+# Create a pandas DataFrame for the dataset
+dataset = pd.DataFrame({'user_id': user_ids, 'item_id': item_ids, 'rating': ratings})
+
+# Encoding categorical variables
+label_encoder = LabelEncoder()
+dataset['user_id'] = label_encoder.fit_transform(dataset['user_id'])
+dataset['item_id'] = label_encoder.fit_transform(dataset['item_id'])
+# Splitting the dataset into training and testing sets
+train_data, test_data = train_test_split(dataset, test_size=0.2, random_state=42)
+
+# Define the input layers
+user_input = tf.keras.Input(shape=(1,), dtype=tf.int32, name='user_input')
+item_input = tf.keras.Input(shape=(1,), dtype=tf.int32, name='item_input')
+# Embedding layers for users and items
+embedding_dim = 8
+user_embedding = tf.keras.layers.Embedding(num_users, embedding_dim)(user_input)
+item_embedding = tf.keras.layers.Embedding(num_items, embedding_dim)(item_input)
+# Calculate similarities using dot product
+user_item_sim = tf.keras.layers.Dot(axes=2, normalize=True)([user_embedding, item_embedding])
+# Flatten the output
+output = tf.keras.layers.Flatten()(user_item_sim)
+# Create the model
+model = tf.keras.Model(inputs=[user_input, item_input], outputs=output)
+model.compile(optimizer='adam', loss='mse')
+# Train the model
+model.fit([train_data['user_id'], train_data['item_id']], train_data['rating'], epochs=10, batch_size=32)
+
+# Make predictions
+predictions = model.predict([test_data['user_id'], test_data['item_id']])
+# Evaluate the model
+mse = tf.keras.losses.mean_squared_error(test_data['rating'], predictions)
+mse_value = mse.numpy()
+# print("Mean Squared Error:", mse_value)

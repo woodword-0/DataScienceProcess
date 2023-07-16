@@ -1,0 +1,39 @@
+M5L4
+
+import tensorflow as tf
+import tensorflow_model_optimization as tfmot
+
+Quantization is a technique that reduces the precision of the model's weights and activations. 
+It allows representing the numbers with fewer bits, typically 8 bits (int8) instead of 32 bits (float32). 
+This reduces the model size and improves inference performance. 
+
+
+# Load the original TensorFlow Lite model
+model = tf.keras.models.load_model('my_model.h5')
+interpreter = tf.lite.Interpreter(model_path='my_model.tflite')
+interpreter.allocate_tensors()
+
+# Create a quantized TensorFlow Lite model
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+converter.optimizations = [tf.lite.Optimize.DEFAULT]
+quantized_model = converter.convert()
+
+# Save the quantized model to disk
+with open('quantized_model.tflite', 'wb') as f:
+    f.write(quantized_model)
+
+Pruning involves removing unnecessary weights from the model, which leads to a sparse model representation. 
+Pruning reduces the model size and inference time without significant loss in accuracy.
+Here's an example code snippet to apply pruning to a TensorFlow Lite model:
+
+# Create a pruned TensorFlow Lite model
+pruning_params = {'pruning_schedule': tfmot.sparsity.keras.ConstantSparsity(0.5, 0)}
+model = tfmot.sparsity.keras.prune_low_magnitude(interpreter, **pruning_params)
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.fit(train_images, train_labels, epochs=10)
+
+# Save the pruned model to disk
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+pruned_model = converter.convert()
+with open('pruned_model.tflite', 'wb') as f:
+    f.write(pruned_model)

@@ -1,0 +1,40 @@
+M3L2
+
+import tensorflow as tf
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+# nltk
+from nltk.corpus import stopwords
+from nltk import pos_tag
+from nltk.tokenize import word_tokenize
+import nltk
+nltk.download('averaged_perceptron_tagger')
+
+# Example text data
+texts = ["Hello, how are you?", "I am doing great!", "What about you?"]
+
+# Tokenization
+tokenizer = Tokenizer()
+tokenizer.fit_on_texts(texts)
+sequences = tokenizer.texts_to_sequences(texts)
+
+# Padding
+max_len = max(len(sequence) for sequence in sequences)
+padded_sequences = pad_sequences(sequences, maxlen=max_len)
+
+# Stop words removal
+stop_words = set(stopwords.words('english'))
+filtered_sequences = []
+for sequence in sequences:
+    filtered_sequence = [word for word in sequence if word not in stop_words]
+    filtered_sequences.append(filtered_sequence)
+
+
+# Grammar tagging
+tagged_sequences = []
+for sequence in filtered_sequences:
+    words = tokenizer.sequences_to_texts([sequence])[0].split()  # Convert sequence back to words
+    tagged_sequence = pos_tag(words)
+    tagged_sequences.append(tagged_sequence)
+
+print(tagged_sequences)

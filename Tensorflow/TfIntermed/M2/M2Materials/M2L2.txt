@@ -1,0 +1,23 @@
+# Import necessary libraries
+import tensorflow as tf
+
+
+# Create a simple RNN model
+model = tf.keras.Sequential()
+model.add(tf.keras.layers.SimpleRNN(units=hidden_size, input_shape=(time_steps, input_dim)))
+model.add(tf.keras.layers.Dense(output_size, activation='softmax'))
+
+
+# Create a single recurrent cell
+rnn_cell = tf.keras.layers.SimpleRNNCell(units=hidden_size)
+
+# Create an RNN layer with multiple recurrent cells
+rnn_layer = tf.keras.layers.RNN(rnn_cell, return_sequences=True)
+
+
+
+# Process the input sequence
+hidden_states = rnn_layer(inputs)
+
+# Access the final hidden state
+final_hidden_state = hidden_states[:, -1, :]

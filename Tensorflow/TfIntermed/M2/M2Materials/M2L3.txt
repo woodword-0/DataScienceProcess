@@ -1,0 +1,49 @@
+M2L3
+
+import numpy as np
+import random
+import itertools
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Embedding, SimpleRNN, Dense
+
+
+# Define the input sequences and their labels
+# Generate all permutations (Number of ways to label 4 vertices of a square 1-4)
+X = list(itertools.permutations([1, 2, 3, 4]))
+# Generate labels to classify each labeling as a specific type
+labels = random.choices([0, 1, 2, 3], k=24)
+
+
+# Create a train/test set
+X = np.array(X)
+y = np.array(labels)
+X_train = X[:int(0.8*len(X))]
+y_train = y[:int(0.8*len(y))]
+X_test = X[int(0.8*len(X)):]
+y_test = y[int(0.8*len(y)):]
+
+
+
+# Define the RNN model
+model = Sequential()
+model.add(Embedding(5, 8, input_length=4))  # Embedding layer to represent input sequences
+model.add(SimpleRNN(16))  # SimpleRNN layer to capture sequential information
+model.add(Dense(4, activation='softmax'))  # Output layer with softmax activation for classification
+
+
+
+# Compile the model
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+# Train the model
+model.fit(X_train, y_train, epochs=10, batch_size=2)
+
+
+
+# Evaluate the model on new data
+predictions = model.predict(X_test)
+predicted_classes = np.argmax(predictions, axis=1)
+print(predicted_classes,y_test)
+
+

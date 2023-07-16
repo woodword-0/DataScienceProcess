@@ -1,0 +1,46 @@
+M4L2
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+import scipy.sparse as sp
+
+
+# Define the number of users and items
+num_users = 100
+num_items = 50
+# Generate random user-item interactions
+user_ids = np.random.randint(0, num_users, size=1000)
+item_ids = np.random.randint(0, num_items, size=1000)
+# Simulate ratings or preferences (e.g., on a scale of 1 to 5)
+ratings = np.random.randint(1, 6, size=1000)
+# Create a pandas DataFrame for the dataset
+dataset = pd.DataFrame({'user_id': user_ids, 'item_id': item_ids, 'rating': ratings})
+
+
+# Encoding categorical variables
+label_encoder = LabelEncoder()
+dataset['user_id'] = label_encoder.fit_transform(dataset['user_id'])
+dataset['item_id'] = label_encoder.fit_transform(dataset['item_id'])
+# Splitting the dataset into training and testing sets
+train_data, test_data = train_test_split(dataset, test_size=0.2, random_state=42)
+
+
+# Creating the user-item interaction matrix
+user_item_matrix = sp.dok_matrix((num_users, num_items), dtype=np.float32)
+for row in train_data.itertuples():
+    user_item_matrix[row.user_id, row.item_id] = row.rating
+# Handling sparse matrices
+user_item_matrix = user_item_matrix.tocsr()
+
+
+# Get the row and column indices of non-zero elements
+rows, cols = user_item_matrix.nonzero()
+# Get the corresponding values
+values = user_item_matrix.data
+# Representing the user-item matrix as a TensorFlow SparseTensor
+sparse_tensor = tf.sparse.SparseTensor(indices=np.column_stack((rows, cols)),
+                                      values=values,
+                                      dense_shape=user_item_matrix.shape)
+

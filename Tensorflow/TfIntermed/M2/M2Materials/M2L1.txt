@@ -1,0 +1,54 @@
+M2L1
+
+# Import the necessary libraries
+import tensorflow as tf
+
+
+# Create a constant tensor
+x = tf.constant([1, 2, 3, 4, 5])
+
+# Create a variable tensor
+y = tf.Variable([5, 4, 3, 2, 1])
+
+
+# Addition
+z = tf.add(x, y)
+
+# Element-wise multiplication
+w = tf.multiply(x, y)
+
+# Matrix multiplication
+v = tf.matmul(x, tf.transpose(y))
+
+
+input_size = 2
+output_size = 2
+
+# Define the input shape
+input_shape = (input_size,)
+
+# Create an input placeholder
+inputs = tf.keras.Input(shape=input_shape)
+
+# Define a fully connected layer
+dense_layer = tf.keras.layers.Dense(units=output_size, activation=tf.nn.relu)(inputs)
+
+
+# Connecting Layers
+# hidden_size = number of neurons
+hidden_size = 32
+# Define the first fully connected layer
+dense_layer_1 = tf.keras.layers.Dense(units=hidden_size, activation=tf.nn.relu)(inputs)
+
+# Define the second fully connected layer
+dense_layer_2 = tf.keras.layers.Dense(units=output_size, activation=tf.nn.softmax)(dense_layer_1)
+
+
+# Define the loss function
+loss = tf.keras.losses.mean_squared_error(labels, predictions)
+
+# Define the optimizer
+optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
+
+# Define the training operation
+train_op = optimizer.minimize(loss)

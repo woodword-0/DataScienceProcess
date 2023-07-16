@@ -1,0 +1,55 @@
+# Sequences and Time series Forecasting
+
+## Sequences
+$\bf{Definition}$: A sequence is a collection of data points or events that are ordered in a specific manner. 
+
+## Use cases for sequences
+1. stock prices 
+2. weather patterns 
+3. text data
+4. DNA sequences
+
+## Time Series
+$\bf{Definition}$:Time series forecasting is a specific type of sequence analysis that focuses on predicting future values based on past observations. In time series forecasting, the data points are collected over regular intervals of time, such as daily, monthly, or yearly, and the goal is to understand and predict the patterns and trends within the data.
+
+## Use cases for sequences
+1. stock prices 
+2. weather patterns 
+3. text data
+4. DNA sequences
+
+
+Lesson 2
+# Introduction to Sequences
+
+## Types of sequences
+1. Fibonacci (next element = sum of last two e.g., [0,1,1,2,3,5,8,...])
+2. Geometric (next element = multiply previous element by a constant e.g., [2,6,18,54,...] c = 3 )
+3. Arithmetic (add constant to previous element e.g., [2,5,8,11,...] c = 3)
+
+# Example:  Generating an arithmetic sequence
+start = 2
+constant = 3
+num_elements = 5
+
+sequence = []
+for i in range(num_elements):
+    sequence.append(start + i * constant)
+print(sequence)
+
+## Time Series Sequences
+
+import pandas as pd
+import numpy as np
+
+start = pd.to_datetime('2023-01-01 00:00:00')
+timestamps = pd.date_range(start, periods=100, freq='15T')
+dates = pd.to_datetime(timestamps)
+
+# Create a time series with random values
+values = np.random.rand(len(dates))
+# Create a DataFrame with the time index and values
+time_series = pd.DataFrame({'Value': values}, index=dates)
+# Plot our time series
+time_series.plot()
+

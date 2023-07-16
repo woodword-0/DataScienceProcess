@@ -1,0 +1,75 @@
+M3L4
+import tensorflow as tf
+import numpy as np
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Embedding, GlobalAveragePooling1D, Dense
+from nltk import pos_tag
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+
+
+# Dataset and stopwords
+stop_words = set(stopwords.words('english'))
+# Example text data and labels
+texts = ["I love this movie!", "This movie is terrible.", "Great book!", "Awful experience."]
+labels = np.array([1, 0, 1, 0])  # Positive sentiment: 1, Negative sentiment: 0
+
+processed_texts = []
+for text in texts:
+    # Tokenization
+    tokens = word_tokenize(text.lower())
+    # POS tagging
+    tagged_tokens = pos_tag(tokens)
+    # Remove stop words and retain relevant POS tags
+    filtered_tokens = [word for word, tag in tagged_tokens if word not in stop_words and tag.startswith(('JJ', 'NN'))]
+    # Join filtered tokens back into a sentence
+    processed_text = ' '.join(filtered_tokens)
+    processed_texts.append(processed_text)
+
+# Tokenization
+tokenizer = Tokenizer()
+tokenizer.fit_on_texts(processed_texts)
+sequences = tokenizer.texts_to_sequences(processed_texts)
+
+# Padding
+max_len = max(len(sequence) for sequence in sequences)
+padded_sequences = pad_sequences(sequences, maxlen=max_len)
+padded_sequences
+
+
+
+# Model architecture
+model = Sequential([
+    Embedding(input_dim=len(tokenizer.word_index) + 1, output_dim=16, input_length=max_len),
+    GlobalAveragePooling1D(),
+    Dense(units=1, activation='sigmoid')])
+model.summary()
+
+
+# Compiling the model
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+# Training the model
+model.fit(padded_sequences, labels, epochs=10, batch_size=1)
+
+# Example new texts for prediction
+new_texts = ["This movie is amazing!", "I didn't like the book."]
+
+# Preprocess the new texts
+processed_new_texts = []
+for text in new_texts:
+    tokens = word_tokenize(text.lower())
+    tagged_tokens = pos_tag(tokens)
+    filtered_tokens = [word for word, tag in tagged_tokens if word not in stop_words and tag.startswith(('JJ', 'NN'))]
+    processed_text = ' '.join(filtered_tokens)
+    processed_new_texts.append(processed_text)
+
+# Tokenize and pad the new texts
+new_sequences = tokenizer.texts_to_sequences(processed_new_texts)
+new_padded_sequences = pad_sequences(new_sequences, maxlen=max_len)
+
+# Make predictions
+predictions = model.predict(new_padded_sequences)
