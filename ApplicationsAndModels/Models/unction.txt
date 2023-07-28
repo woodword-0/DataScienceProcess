@@ -1,0 +1,33 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define the function
+def plot_decomposition(df, ts, trend, seasonal, residual):
+    # Make into time axis
+    f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 5), sharex=True)
+
+    ax1.plot(df[ts], label='Original', c='b')
+    ax1.legend(loc='best')
+    ax1.tick_params(axis='x', rotation=45)
+
+    ax2.plot(df[trend], label='Trend', c='lime')
+    ax2.legend(loc='best')
+    ax2.tick_params(axis='x', rotation=45)
+
+    ax3.plot(df[seasonal], label='Seasonality', c='m')
+    ax3.legend(loc='best')
+    ax3.tick_params(axis='x', rotation=45)
+
+    ax4.plot(df[residual], label='Residuals', c='r')
+    ax4.legend(loc='best')
+    ax4.tick_params(axis='x', rotation=45)
+
+    plt.tight_layout()
+    plt.show()
+
+# Assuming you already have the DataFrame named 'DF' with columns 'ds', 'ts', 'trend', 'seasonal', 'residual'
+# If 'ds' is not already in datetime format, you can convert it using pd.to_datetime() as shown in the previous example.
+
+# Call the function to plot the decomposition
+plot_decomposition(DF, 'ts', 'trend', 'seasonal', 'residual')
