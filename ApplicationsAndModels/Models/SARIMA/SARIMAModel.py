@@ -17,19 +17,7 @@ df1 = pd.read_excel(path + file1)
 df2 = pd.read_excel(path + file2)
 
 df = pd.read_pickle('dataframe.pkl')
-###############################################################################################################################################
-###############################################################################################################################################
-
-#Create Exogeneous vars
-exog_df = df[['Friday','Monday','Saturday','Sunday','Thursday','Tuesday','Wednesday',
-                False,True,'PRCP','TMIN','TMAX','TAVG','lag_1']]
-# exog_df = df[['Friday','Monday','Saturday','Sunday','Thursday','Tuesday','Wednesday',
-#                 False,True,'lag_1']]
-# exog_df.shape
-# with open('exog_df.pkl', 'wb') as f:
-#     pickle.dump(results, f)
-
-
+c
 ###############################################################################################################################################
 ###############################################################################################################################################
 # Rename Columns
@@ -79,8 +67,9 @@ mod = sm.tsa.statespace.SARIMAX(ts,
                                 enforce_stationarity=es1,
                                 enforce_invertibility=False)
 results = mod.fit()
+pred_uc = results.get_forecast(steps=30)
 
-pred_uc = results.get_forecast(steps=calendar.monthrange(datetime.now().year,datetime.now().month)[1]-datetime.now().day+1)
+# pred_uc = results.get_forecast(steps=calendar.monthrange(datetime.now().year,datetime.now().month)[1]-datetime.now().day+1)
 pred_ci = pred_uc.conf_int()
 ax = ts.plot(label='observed', figsize=(12, 5))
 pred_uc.predicted_mean.plot(ax=ax, label='Forecast')
